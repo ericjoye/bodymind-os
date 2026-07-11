@@ -100,7 +100,7 @@
 
     async function lookupLicense(sid) {
       try {
-        const resp = await fetch('/api/claim-key?session_id=' + encodeURIComponent(sid));
+        const resp = await fetch('https://bodymind-os.vercel.app/api/claim-key?session_id=' + encodeURIComponent(sid));
         const data = await resp.json();
         return data;
       } catch (e) {
