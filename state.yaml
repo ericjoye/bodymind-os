@@ -1,0 +1,16 @@
+pipeline:
+  current_stage: tester
+  next_stage_recommended: builder
+  next_stage_reason: "Product failed fulfillment verification: deployed app artifact damaged by overwritten app/notes.js. Builder must restore from backup before rerun."
+reasoning:
+  current_decision: FAIL
+  confidence: 1.0
+  evidence_for:
+    - "app/notes.js contains non-JS payload; Node loader throws SyntaxError during module load"
+    - "buyer drill impossible until live app artifact is restored"
+    - "state.yaml stale PASS originated from pre-run product state, not verifier verdict"
+  evidence_against:
+    - "Fulfillment gate mechanically returned yes (mechanically enabled), but live app artifact is not payable/deliverable in current state"
+  assumptions_remaining:
+    - "notes.js can be recovered from zip/backup without loss"
+  what_would_change_my_mind: "notes.js restored and buyer drill passes from clean copy against live deployed app"

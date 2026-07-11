@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BodyMind OS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <!-- Splash / License Gate -->
+  <div id="splash">
+    <div class="splash-card">
+      <div class="splash-logo">🌿 BodyMind OS</div>
+      <div class="splash-tagline">Business OS for Independent Massage Therapists</div>
+
+      <div id="splash-content">
+        <h2>Welcome</h2>
+        <p>Enter your license key to unlock Pro, or start with the free Starter plan.</p>
+        <div id="splash-error" class="splash-error hidden"></div>
+        <input type="text" id="license-key" placeholder="BOMD-XXXX-XXXX-XXXX" style="text-align:center; font-size:16px; letter-spacing:1px;">
+        <button class="btn btn-primary btn-full" id="btn-activate" style="margin-top:12px;">Activate Pro</button>
+        <button class="btn btn-ghost btn-full" id="btn-free-tier" style="margin-top:8px;">Continue with Starter (Free)</button>
+      </div>
+
+      <div id="splash-upgrade-info" class="hidden" style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border);">
+        <p style="font-size:13px; color:var(--text-muted);">Don't have a key? <a href="../#pricing">Upgrade to Pro for $29/mo</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app">
+    <header class="app-header">
+      <div class="app-header-logo">🌿 BodyMind OS</div>
+      <div class="header-right">
+        <span id="tier-badge" class="tier-badge tier-free">Starter</span>
+        <button class="btn btn-sm btn-ghost" id="btn-settings">⚙️</button>
+      </div>
+    </header>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="dashboard">
+        <span class="nav-icon">📊</span>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item" data-tab="calendar">
+        <span class="nav-icon">📅</span>
+        <span>Calendar</span>
+      </button>
+      <button class="nav-item" data-tab="clients">
+        <span class="nav-icon">👥</span>
+        <span>Clients</span>
+      </button>
+      <button class="nav-item" data-tab="notes">
+        <span class="nav-icon">📝</span>
+        <span>Notes</span>
+      </button>
+      <button class="nav-item" data-tab="intake">
+        <span class="nav-icon">📋</span>
+        <span>Intake</span>
+      </button>
+      <button class="nav-item" data-tab="ce">
+        <span class="nav-icon">🎓</span>
+        <span>CE</span>
+      </button>
+    </nav>
+
+    <div id="app-content">
+      <!-- Content rendered by JS -->
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="state.js"></script>
+  <script src="license.js"></script>
+  <script src="clients.js"></script>
+  <script src="calendar.js"></script>
+  <script src="intake.js"></script>
+  <script src="notes.js"></script>
+  <script src="ce-tracker.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

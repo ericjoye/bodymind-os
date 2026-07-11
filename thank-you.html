@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You — BodyMind OS</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fafaf8; color: #2d2a26; line-height: 1.6;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #fff; border: 1px solid #e0dcd4; border-radius: 12px;
+      padding: 40px; max-width: 520px; width: 100%; text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #5b8a72; }
+    .subtitle { font-size: 16px; color: #6b6560; margin-bottom: 24px; }
+    .license-box {
+      background: #f5f3ef; border: 1px solid #e0dcd4; border-radius: 8px;
+      padding: 20px; margin: 24px 0; font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px; word-break: break-all; line-height: 1.5;
+      text-align: left; position: relative;
+    }
+    .copy-btn {
+      position: absolute; top: 12px; right: 12px;
+      background: #5b8a72; color: #fff; border: none; border-radius: 6px;
+      padding: 6px 12px; font-size: 12px; cursor: pointer;
+    }
+    .copy-btn:hover { background: #4a7360; }
+    .copy-btn.copied { background: #c4915e; }
+    .steps { text-align: left; margin: 24px 0; }
+    .steps h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+    .steps ol { padding-left: 20px; }
+    .steps li { font-size: 14px; color: #6b6560; margin-bottom: 8px; }
+    .btn {
+      display: inline-block; background: #5b8a72; color: #fff;
+      padding: 12px 24px; border-radius: 8px; text-decoration: none;
+      font-weight: 600; font-size: 15px; margin-top: 8px;
+    }
+    .btn:hover { background: #4a7360; }
+    .loading { color: #9a948c; padding: 40px 0; }
+    .error { color: #c45c5c; padding: 20px; background: rgba(196,92,92,0.1); border-radius: 8px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div id="loading-state">
+      <h1>Processing Your Payment...</h1>
+      <p class="subtitle">Your license key will appear here in a moment.</p>
+      <div class="loading">⏳ Searching for your license...</div>
+    </div>
+
+    <div id="success-state" class="hidden">
+      <h1>🎉 You're All Set!</h1>
+      <p class="subtitle">Your BodyMind OS Pro license is ready. Copy it below and paste it into the app.</p>
+
+      <div class="license-box" id="license-box">
+        <button class="copy-btn" id="copy-btn">Copy</button>
+        <code id="license-key-display">BODYMINDOS-PRO...</code>
+      </div>
+
+      <div class="steps">
+        <h3>How to activate:</h3>
+        <ol>
+          <li><strong>Copy</strong> the license key above (click Copy to clipboard)</li>
+          <li>Open the <a href="app/" id="app-link">BodyMind OS app</a></li>
+          <li>Paste your key into the activation screen and click <strong>Activate Pro</strong></li>
+          <li>You'll have full access to SOAP notes, intake forms, CE tracking, and more</li>
+        </ol>
+      </div>
+
+      <a href="app/" class="btn">Open App</a>
+    </div>
+
+    <div id="error-state" class="hidden">
+      <h1>Looking for Your License...</h1>
+      <div class="error" id="error-message">
+        We couldn't find your license key right away. It may take up to 30 seconds to process.
+        Try again below, or contact support with your payment email.
+      </div>
+      <div style="margin-top: 16px;">
+        <input type="text" id="session-id-input" placeholder="Paste your session ID from Stripe" style="width:100%;padding:10px;border:1px solid #e0dcd4;border-radius:8px;font-size:14px;">
+        <button onclick="retryLookup()" style="margin-top:8px;padding:10px 20px;background:#5b8a72;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;">Look Up Key</button>
+      </div>
+      <p style="margin-top: 16px; font-size: 13px; color: #9a948c;">
+        Already have your key? <a href="app/">Open the app →</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // ── Try to find license key from URL params ──
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id') || '';
+
+    async function lookupLicense(sid) {
+      try {
+        const resp = await fetch('/api/claim-key?session_id=' + encodeURIComponent(sid));
+        const data = await resp.json();
+        return data;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function showLicense(key, tier) {
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('error-state').classList.add('hidden');
+      document.getElementById('success-state').classList.remove('hidden');
+      document.getElementById('license-key-display').textContent = key;
+
+      const tierLabel = tier === 'studio' ? 'Studio' : 'Pro';
+      document.querySelector('.subtitle').textContent =
+        'Your BodyMind OS ' + tierLabel + ' license is ready.';
+
+      // Copy button
+      document.getElementById('copy-btn').addEventListener('click', function() {
+        navigator.clipboard.writeText(key).then(() => {
+          this.textContent = 'Copied!';
+          this.classList.add('copied');
+          setTimeout(() => { this.textContent = 'Copy'; this.classList.remove('copied'); }, 2000);
+        });
+      });
+    }
+
+    function showError(msg) {
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('success-state').classList.add('hidden');
+      document.getElementById('error-state').classList.remove('hidden');
+      document.getElementById('error-message').textContent = msg || 'Could not find your license. Try again shortly.';
+      document.getElementById('session-id-input').value = sessionId;
+    }
+
+    function retryLookup() {
+      const sid = document.getElementById('session-id-input').value.trim();
+      if (!sid) return;
+      document.getElementById('error-message').textContent = 'Searching...';
+      lookupLicense(sid).then(data => {
+        if (data && data.found && data.key) {
+          showLicense(data.key, data.tier);
+        } else {
+          showError(data && data.error ? data.error : 'No license found for that session ID.');
+        }
+      }).catch(() => {
+        showError('Network error. Please try again.');
+      });
+    }
+
+    // Auto-lookup if we have a session_id
+    if (sessionId) {
+      // Retry up to 3 times with 2s delay (Stripe webhook may take a moment)
+      let attempts = 0;
+      function tryLookup() {
+        attempts++;
+        lookupLicense(sessionId).then(data => {
+          if (data && data.found && data.key) {
+            showLicense(data.key, data.tier);
+          } else if (attempts < 3) {
+            setTimeout(tryLookup, 2000);
+          } else {
+            showError();
+          }
+        }).catch(() => {
+          if (attempts < 3) {
+            setTimeout(tryLookup, 2000);
+          } else {
+            showError();
+          }
+        });
+      }
+      tryLookup();
+    } else {
+      // No session ID in URL — show message
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('error-state').classList.remove('hidden');
+      document.getElementById('error-message').textContent =
+        'No session ID found. If you just purchased, your license will arrive via the Stripe checkout confirmation. Want to look it up? Enter your session ID below.';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Session — BodyMind OS</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { background: var(--bg); }
+    .booking-container { max-width: 500px; margin: 0 auto; padding: 24px; }
+    .booking-header { text-align: center; margin-bottom: 32px; }
+    .booking-header h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+    .booking-header p { color: var(--text-muted); font-size: 14px; }
+    .step-indicator { display: flex; gap: 8px; margin-bottom: 24px; }
+    .step { flex: 1; height: 4px; background: var(--border); border-radius: 2px; }
+    .step.active { background: var(--primary); }
+    .step.completed { background: var(--success); }
+    .booking-step { display: none; }
+    .booking-step.active { display: block; }
+    .session-option { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s; }
+    .session-option:hover { border-color: var(--primary); }
+    .session-option.selected { border-color: var(--primary); background: var(--primary-bg); }
+    .session-info { flex: 1; }
+    .session-name { font-weight: 500; font-size: 14px; }
+    .session-details { font-size: 12px; color: var(--text-muted); }
+    .session-price { font-weight: 600; color: var(--primary); }
+    .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .time-slot { padding: 10px; text-align: center; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; transition: all 0.15s; }
+    .time-slot:hover { border-color: var(--primary); }
+    .time-slot.selected { background: var(--primary); color: white; border-color: var(--primary); }
+    .confirmation-box { background: var(--success-bg); border: 1px solid var(--success); border-radius: var(--radius); padding: 20px; text-align: center; }
+    .confirmation-box h3 { color: var(--success); margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="booking-container">
+    <div class="booking-header">
+      <div style="font-size:32px; margin-bottom:8px;">🌿</div>
+      <h1>Book Your Session</h1>
+      <p>Select a service, pick a time, and confirm your booking.</p>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step active" id="step-ind-1"></div>
+      <div class="step" id="step-ind-2"></div>
+      <div class="step" id="step-ind-3"></div>
+    </div>
+
+    <!-- Step 1: Select Service -->
+    <div class="booking-step active" id="booking-step-1">
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Choose a Service</h3>
+        <div id="session-options">
+          <div class="session-option" data-type="Swedish 60" data-duration="60" data-price="90">
+            <div class="session-info">
+              <div class="session-name">Swedish Massage</div>
+              <div class="session-details">60 minutes · Relaxation & tension relief</div>
+            </div>
+            <div class="session-price">$90</div>
+          </div>
+          <div class="session-option" data-type="Swedish 90" data-duration="90" data-price="130">
+            <div class="session-info">
+              <div class="session-name">Swedish Massage</div>
+              <div class="session-details">90 minutes · Deep relaxation</div>
+            </div>
+            <div class="session-price">$130</div>
+          </div>
+          <div class="session-option" data-type="Deep Tissue 60" data-duration="60" data-price="100">
+            <div class="session-info">
+              <div class="session-name">Deep Tissue</div>
+              <div class="session-details">60 minutes · Chronic tension & knots</div>
+            </div>
+            <div class="session-price">$100</div>
+          </div>
+          <div class="session-option" data-type="Deep Tissue 90" data-duration="90" data-price="140">
+            <div class="session-info">
+              <div class="session-name">Deep Tissue</div>
+              <div class="session-details">90 minutes · Full body deep work</div>
+            </div>
+            <div class="session-price">$140</div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full" id="btn-step-1-next" style="margin-top:16px;" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Select Time -->
+    <div class="booking-step" id="booking-step-2">
+      <div class="card">
+        <h3 style="margin-bottom:4px;">Pick a Date & Time</h3>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Select an available slot:</p>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="booking-date">
+        </div>
+        <div class="time-slots" id="time-slots">
+          <div class="time-slot" data-time="09:00">9:00 AM</div>
+          <div class="time-slot" data-time="10:00">10:00 AM</div>
+          <div class="time-slot" data-time="11:00">11:00 AM</div>
+          <div class="time-slot" data-time="12:00">12:00 PM</div>
+          <div class="time-slot" data-time="13:00">1:00 PM</div>
+          <div class="time-slot" data-time="14:00">2:00 PM</div>
+          <div class="time-slot" data-time="15:00">3:00 PM</div>
+          <div class="time-slot" data-time="16:00">4:00 PM</div>
+          <div class="time-slot" data-time="17:00">5:00 PM</div>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:16px;">
+          <button class="btn btn-ghost" id="btn-step-2-back">← Back</button>
+          <button class="btn btn-primary btn-full" id="btn-step-2-next" disabled>Continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Confirm -->
+    <div class="booking-step" id="booking-step-3">
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Your Details</h3>
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="client-name" placeholder="Your full name">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="client-email" placeholder="you@email.com">
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" id="client-phone" placeholder="555-0100">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Any notes for the therapist?</label>
+          <textarea id="client-booking-notes" placeholder="Focus areas, injuries, preferences..."></textarea>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-ghost" id="btn-step-3-back">← Back</button>
+          <button class="btn btn-primary btn-full" id="btn-confirm-booking">Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation -->
+    <div class="booking-step" id="booking-step-4">
+      <div class="confirmation-box">
+        <div style="font-size:40px; margin-bottom:12px;">✓</div>
+        <h3>Booking Confirmed!</h3>
+        <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">You'll receive a confirmation email shortly.</p>
+        <div id="booking-summary" style="margin-top:20px; text-align:left; padding:16px; background:var(--bg-card); border-radius:var(--radius-sm);"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      let selectedSession = null;
+      let selectedDate = null;
+      let selectedTime = null;
+
+      // Set min date to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('booking-date').min = today;
+      document.getElementById('booking-date').value = today;
+      selectedDate = today;
+
+      // Session selection
+      document.querySelectorAll('.session-option').forEach(el => {
+        el.addEventListener('click', () => {
+          document.querySelectorAll('.session-option').forEach(e => e.classList.remove('selected'));
+          el.classList.add('selected');
+          selectedSession = {
+            type: el.dataset.type,
+            duration: el.dataset.duration,
+            price: el.dataset.price
+          };
+          document.getElementById('btn-step-1-next').disabled = false;
+        });
+      });
+
+      // Time slot selection
+      document.querySelectorAll('.time-slot').forEach(el => {
+        el.addEventListener('click', () => {
+          document.querySelectorAll('.time-slot').forEach(e => e.classList.remove('selected'));
+          el.classList.add('selected');
+          selectedTime = el.dataset.time;
+          document.getElementById('btn-step-2-next').disabled = false;
+        });
+      });
+
+      document.getElementById('booking-date').addEventListener('change', (e) => {
+        selectedDate = e.target.value;
+      });
+
+      // Navigation
+      function goToStep(n) {
+        document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+        document.getElementById('booking-step-' + n).classList.add('active');
+
+        for (let i = 1; i <= 3; i++) {
+          const ind = document.getElementById('step-ind-' + i);
+          if (i < n) ind.className = 'step completed';
+          else if (i === n) ind.className = 'step active';
+          else ind.className = 'step';
+        }
+      }
+
+      document.getElementById('btn-step-1-next').addEventListener('click', () => goToStep(2));
+      document.getElementById('btn-step-2-next').addEventListener('click', () => goToStep(3));
+      document.getElementById('btn-step-2-back').addEventListener('click', () => goToStep(1));
+      document.getElementById('btn-step-3-back').addEventListener('click', () => goToStep(2));
+
+      document.getElementById('btn-confirm-booking').addEventListener('click', () => {
+        const name = document.getElementById('client-name').value.trim();
+        const email = document.getElementById('client-email').value.trim();
+
+        if (!name || !email) {
+          alert('Name and email are required');
+          return;
+        }
+
+        // Save to localStorage (shared with therapist app)
+        const bookings = JSON.parse(localStorage.getItem('bodymind_public_bookings') || '[]');
+        bookings.push({
+          id: 'pb_' + Date.now(),
+          clientName: name,
+          clientEmail: email,
+          clientPhone: document.getElementById('client-phone').value.trim(),
+          notes: document.getElementById('client-booking-notes').value.trim(),
+          sessionType: selectedSession.type,
+          sessionDuration: selectedSession.duration,
+          sessionPrice: selectedSession.price,
+          date: selectedDate,
+          time: selectedTime,
+          createdAt: new Date().toISOString()
+        });
+        localStorage.setItem('bodymind_public_bookings', JSON.stringify(bookings));
+
+        // Show confirmation
+        document.getElementById('booking-summary').innerHTML = `
+          <div style="font-size:13px; line-height:1.8;">
+            <div><strong>Service:</strong> ${selectedSession.type}</div>
+            <div><strong>Date:</strong> ${new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</div>
+            <div><strong>Time:</strong> ${selectedTime}</div>
+            <div><strong>Duration:</strong> ${selectedSession.duration} minutes</div>
+            <div><strong>Price:</strong> $${selectedSession.price}</div>
+          </div>
+        `;
+
+        goToStep(4);
+      });
+    })();
+  </script>
+</body>
+</html>
