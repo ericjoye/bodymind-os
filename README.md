@@ -12,16 +12,16 @@ Business operating system for independent massage therapists and bodyworkers.
 - **CE Tracker** (Pro) — Log continuing education hours, track state requirements
 - **Revenue Dashboard** — See income, retention, no-show rates
 
-## Running
+## Live URL
+
+**https://ericjoye.github.io/bodymind-os/**
+
+## Running Locally
 
 No build step. No dependencies. Just open in a browser:
 
 ```bash
-# Option 1: Direct file open
-open index.html                    # macOS
-xdg-open index.html                # Linux
-
-# Option 2: Simple HTTP server (recommended for service workers, etc.)
+# Simple HTTP server
 python3 -m http.server 8080
 # Then open http://localhost:8080/
 ```
@@ -72,10 +72,11 @@ bodymind-os/
     └── language-bank.md # Real buyer language
 ```
 
-## Known Limitations (MVP)
+## Known Limitations (Beta)
 
-- No backend — all data stored in browser localStorage
-- No Stripe integration yet — license key is honor-system with client-side validation
-- No email/SMS reminders — UI exists but no sending mechanism
+- No backend server — all data stored in browser localStorage
+- API endpoints (Stripe webhook, claim-key) on GitHub Pages are static-only; need separate Vercel deploy for automated license fulfillment
+- License keys generated manually via `node scripts/sign-license-key.js` until Stripe webhook is deployed
+- Client-side license bypass possible (ECDC) — ECDSA P-256 signing makes forgery infeasible
 - No multi-device sync — data is per-browser
-- Client booking page is therapist-side only (no public-facing booking portal yet)
+- No email/SMS sending — reminders are UI-only
