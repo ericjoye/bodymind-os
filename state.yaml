@@ -1,28 +1,34 @@
 pipeline:
-  current_stage: distributor
-  next_stage_recommended: seller
-  next_stage_reason: "All marketplaces published. Landing page, Vercel API, Stripe payment links, GitHub Release all live and verified. Ready for Seller to drive traffic."
+  current_stage: seller
+  next_stage_recommended: foreman
+  next_stage_reason: "SELLER enhancements complete: Brand-Voice copy, JSON-LD structured data, OG tags, FAQ with Language Bank, ROI section, SEO articles, outreach emails. Thank-you page rewritten for static hosting (no Vercel API dependency). Truth ledger updated. Product promoted to LAUNCH-CANDIDATE."
 reasoning:
   current_decision: PASS
-  confidence: 1.0
+  confidence: 0.95
 evidence_for:
-  - "GitHub Pages landing page: https://ericjoye.github.io/bodymind-os/ — HTTP 200, all assets serving"
-  - "Vercel deployment: https://bodymind-os.vercel.app/ — HTTP 200, API endpoints live"
-  - "Stripe Pro ($29/mo): https://buy.stripe.com/3cI7sMdTqdZn1Xo5e0bAs0I — HTTP 200, LIVE"
-  - "Stripe Studio ($49/mo): https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J — HTTP 200, LIVE"
-  - "GitHub Release v1.1.0: https://github.com/ericjoye/bodymind-os/releases/tag/v1.1.0"
-  - "GitHub repo: https://github.com/ericjoye/bodymind-os"
-  - "App JS files (9/9) all serving 200 from GitHub Pages"
-  - "All 9 app JS files + CSS verified 200 OK"
+  - "GitHub Pages landing page: https://ericjoye.github.io/bodymind-os/ — HTTP 200, enhanced with JSON-LD, OG tags, FAQ, ROI section"
+  - "App shell: https://ericjoye.github.io/bodymind-os/app/ — HTTP 200, all 9 JS files serving"
+  - "Thank-you page: https://ericjoye.github.io/bodymind-os/thank-you.html — HTTP 200, static-only (no Vercel API dependency)"
+  - "Stripe Pro ($29/mo): https://buy.stripe.com/3cI7sMdTqdZn1Xo5e0bAs0I — LIVE HTTP 200"
+  - "Stripe Studio ($49/mo): https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J — LIVE HTTP 200"
+  - "License drill 6/6 PASS (ECDSA P-256 fulfillment chain verified)"
+  - "SELLER-COPY.md: Brand-Voice guide + Language Bank for massage therapists, Voice & Language Gate PASS"
+  - "2 SEO articles written for massage therapist audience (intake forms/SOAP notes + CE tracking)"
+  - "3 outreach emails drafted (direct therapist, ABMP/massage school, podcast/influencer)"
+  - "Truth ledger updated: TRUTH-LEDGER.md + PRODUCT_TRUTH_STATE.md promoted to LAUNCH-CANDIDATE"
 evidence_against:
-  - "Stripe webhook env vars not configured (STRIPE_WEBHOOK_SECRET, STRIPE_API_KEY) — manual key generation fallback available via scripts/sign-license-key.js"
+  - "Vercel API env vars not set (STRIPE_WEBHOOK_SECRET, STRIPE_API_KEY) — automated key delivery only via manual script"
+  - "SEO articles not deployed to blog URL (need hosting)"
+  - "Outreach emails not sent (need Eric to send)"
 assumptions_remaining:
-  - "Stripe webhook integration requires manual env var config in Vercel dashboard"
-what_would_change_my_mind: ""
+  - "Stripe webhook env vars require human config in Vercel dashboard"
+  - "Email sending requires lead_sender.py with real recipient list"
 published_urls:
   landing: "https://ericjoye.github.io/bodymind-os/"
-  vercel: "https://bodymind-os.vercel.app/"
   app: "https://ericjoye.github.io/bodymind-os/app/"
+  booking: "https://ericjoye.github.io/bodymind-os/book.html"
+  thank_you: "https://ericjoye.github.io/bodymind-os/thank-you.html"
+  vercel: "https://bodymind-os.vercel.app/"
   repo: "https://github.com/ericjoye/bodymind-os"
   release: "https://github.com/ericjoye/bodymind-os/releases/tag/v1.1.0"
   stripe_pro: "https://buy.stripe.com/3cI7sMdTqdZn1Xo5e0bAs0I"

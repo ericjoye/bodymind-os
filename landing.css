@@ -355,6 +355,107 @@
   color: var(--primary);
 }
 
+/* Trust / Social Proof Bar */
+.trust-section {
+  padding: 16px 0 40px;
+}
+.trust-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Pricing subtitle */
+.pricing-subtitle {
+  text-align: center;
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: -32px;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ROI Section */
+.roi-section {
+  padding: 60px 24px;
+  background: var(--bg-section);
+  border-radius: var(--radius);
+  margin: 0 -24px;
+}
+.roi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.roi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+}
+.roi-highlight {
+  border-color: var(--primary);
+  background: var(--primary-bg);
+}
+.roi-number {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.roi-highlight .roi-number {
+  color: var(--accent);
+}
+.roi-label {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.roi-note {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin: 24px auto 0;
+}
+
+/* FAQ Section */
+.faq-section {
+  padding: 60px 0;
+}
+.faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.faq-item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+.faq-item h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.faq-item p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero h1 { font-size: 32px; }
