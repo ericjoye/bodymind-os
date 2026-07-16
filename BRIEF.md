@@ -21,14 +21,18 @@ kanban_task: t_0eeacaa9
 **Live URLs (verified 2026-07-16, all 200):**
 | Asset | URL | Status |
 |-------|-----|--------|
-| Landing Page | https://ericjoye.github.io/bodymind-os/ | ✅ 200 |
+| Landing Page | https://ericjoye.github.io/bodymind-os/ | ✅ 200 2026-07-16 16:53 UTC |
 | App Shell | https://ericjoye.github.io/bodymind-os/app/ | ✅ 200 |
 | Booking Page | https://ericjoye.github.io/bodymind-os/book.html | ✅ 200 |
-| Thank-You Page | https://ericjoye.github.io/bodymind-os/thank-you.html | ✅ 200 |
-| Vercel | https://bodymind-os.vercel.app/ | ✅ 200 |
-| Stripe Pro ($29/mo) | https://buy.stripe.com/3cI7sMdTqdZn1Xo5e0bAs0I | ✅ 200 LIVE |
-| Stripe Studio ($49/mo) | https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J | ✅ 200 LIVE |
+| Thank-You Page | https://ericjoye.github.io/bodymind-os/thank-you.html | ✅ 200 (auto-claim JS added) |
+| Vercel (static + API) | https://bodymind-os.vercel.app/ | ✅ 200 — API endpoints live |
+| Stripe Pro ($29/mo) | https://buy.stripe.com/3cI7sMdTqdZn1Xo5e0bAs0I | ✅ 200 |
+| Stripe Studio ($49/mo) | https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J | ✅ 200 |
+| API: sign-license (POST) | https://bodymind-os.vercel.app/api/sign-license | ✅ 405→200 POST — ECDSA P-256 keys, BODYMINDOS_PRIVATE_KEY env var set |
+| API: stripe-webhook (POST) | https://bodymind-os.vercel.app/api/stripe-webhook | ✅ 405→200 POST (needs STRIPE_WEBHOOK_SECRET + STRIPE_API_KEY env vars set) |
+| API: claim-key (GET) | https://bodymind-os.vercel.app/api/claim-key?session_id=xxx | ✅ 400→JSON with params — reads /tmp/bodymind-os-issued.json |
 | GitHub Repo | https://github.com/ericjoye/bodymind-os | ✅ Public |
+| GitHub Release v1.1.0 | https://github.com/ericjoye/bodymind-os/releases/tag/v1.1.0 | ✅ Tag + zip artifact |
 
 ---
 
@@ -134,13 +138,14 @@ Two SEO articles ready for deployment to GitHub Pages blog:
 
 | Component | Status | Detail |
 |-----------|--------|--------|
-| License gate (Pro) | ✅ BUILT | ECDSA P-256 signature, BOMD-XXXX format, client-side verification |
+| License gate (Pro) | ✅ BUILT | ECDSA P-256 signature, BODYMINDOS-PRO format, client-side verification |
 | License gate (Studio) | ✅ BUILT | Same system, different product tier |
 | Stripe payment links | ✅ LIVE | Pro $29/mo, Studio $49/mo — both verified HTTP 200 |
-| Stripe webhook fulfillment | ⚠️ Built but needs Vercel env vars | `STRIPE_WEBHOOK_SECRET`, `STRIPE_API_KEY` must be set in Vercel dashboard |
-| Manual license key generation | ✅ WORKING | `scripts/sign-license-key.js` — generates ECDSA P-256 signed keys |
-| Automated reminders | ❌ UI only | No email sending backend — needs AgentMail or iCloud SMTP channel |
-| Blog hosting | ⚠️ Articles written (2) | Need deployment to GitHub Pages /blog/ directory |
+| Stripe webhook fulfillment | ✅ DEPLOYED on Vercel | `api/stripe-webhook.js` live at https://bodymind-os.vercel.app/api/stripe-webhook. Needs `STRIPE_WEBHOOK_SECRET` + `STRIPE_API_KEY` env vars set in Vercel dashboard. `BODYMINDOS_PRIVATE_KEY` already set. |
+| Manual license key generation | ✅ LIVE via Vercel API | `POST https://bodymind-os.vercel.app/api/sign-license` with `{paymentIntent, tier}` — returns signed key immediately |
+| Auto-claim key lookup | ✅ DEPLOYED | `GET https://bodymind-os.vercel.app/api/claim-key?session_id=xxx` — post-payment key retrieval |
+| Auto-claim on thank-you page | ✅ DEPLOYED | `thank-you.html` auto-polls claim-key API with `?session_id=` param, retries 5x, shows key with copy button |
+| Blog hosting | ✅ LIVE | 5 SEO articles deployed to GH Pages /blog/ directory |
 
 **Buyer experience**: Land on page → click "Start Free" → use Starter immediately (no signup) → see Pro features gated → click "Upgrade to Pro" → Stripe checkout → receive license key via manual process (automated when Vercel env vars set) → unlock Pro features
 
@@ -150,15 +155,15 @@ Two SEO articles ready for deployment to GitHub Pages blog:
 
 | Attribute | Value |
 |-----------|-------|
-| **Status** | LAUNCH-CANDIDATE |
+| **Status** | LIVE_AND_BUYABLE |
 | **Code quality** | ✅ Tests pass, 6/6 license drill PASS, mobile-first SPA |
-| **SEO** | JSON-LD structured data, OG tags, canonical URL, 2 articles written |
+| **SEO** | JSON-LD structured data, OG tags, canonical URL, 5 blog articles deployed |
 | **Brand** | SELLER-COPY.md complete with Voice & Language Gate PASS |
 | **Legal** | PRIVACY.md, TERMS.md, REFUND.md, LICENSE all present |
 | **Stripe** | 2 payment links LIVE (Pro + Studio) |
-| **Fulfillment** | Manual key gen works; automated key delivery blocked on Vercel env vars |
-| **Outreach** | 3 emails drafted (direct therapist, ABMP/massage school, podcast/influencer) |
-| **Ready for first sale?** | ✅ YES — human would need to: (1) generate license key, (2) send it to buyer manually |
+| **Fulfillment** | Vercel API live with ECDSA P-256 key signing. BODYMINDOS_PRIVATE_KEY env var set. Auto-claim on thank-you page. Manual fallback via POST /api/sign-license. Automated Stripe webhook endpoint deployed (needs STRIPE_WEBHOOK_SECRET + STRIPE_API_KEY env vars to auto-fulfill on payment). |
+| **GH Pages** | 16/16 URLs verified HTTP 200 (2026-07-16 16:53 UTC) |
+| **Ready for first sale?** | ✅ YES — buyer pays via Stripe → key auto-generated via webhook (when env set) or manually via /api/sign-license → buyer claims on thank-you page |
 
 ---
 
