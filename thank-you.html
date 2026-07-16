@@ -64,14 +64,30 @@
 
     <a href="app/" class="btn">Open BodyMind OS App →</a>
 
+    <div class="section" id="auto-key">
+      <h3>🔑 Your License Key</h3>
+      <div id="key-loading" class="key-notice">
+        <p><strong>Checking for your license key...</strong></p>
+        <p style="margin-top:8px; font-size:12px; color:#6b6560;">This should only take a moment.</p>
+      </div>
+      <div id="key-found" class="key-notice" style="display:none;">
+        <p><strong>Your key is ready!</strong> Copy it below and paste into the app:</p>
+        <code id="key-display" style="user-select:all;">Loading...</code>
+        <button class="btn btn-ghost" onclick="navigator.clipboard.writeText(document.getElementById('key-display').textContent);this.textContent='Copied!'" style="margin-top:8px;">📋 Copy Key</button>
+        <a href="app/" class="btn" style="margin-top:8px;">Open App →</a>
+      </div>
+      <div id="key-not-found" class="key-notice" style="display:none;">
+        <p><strong>⌛ Your key is still being processed.</strong></p>
+        <p style="margin-top:8px;">It typically arrives within 30 seconds. Check this page again or use the demo keys below to explore immediately.</p>
+      </div>
+    </div>
+
     <div class="section" id="manual-key">
-      <h3>⌛ Didn't receive your key yet?</h3>
+      <h3>💡 Key not appearing? Here's what to do:</h3>
       <div class="key-notice">
-        <p><strong>Your license key is being generated and will arrive by email.</strong></p>
-        <p style="margin-top:8px;">If you don't see it within 5 minutes:</p>
-        <ul style="margin-top:8px; padding-left:16px; font-size:12px; color:#6b6560;">
-          <li>Check your spam/promotions folder</li>
-          <li>Make sure the email you used at Stripe checkout is correct</li>
+        <ul style="padding-left:16px; font-size:13px; color:#6b6560;">
+          <li>If you were redirected here from Stripe, your key will appear above automatically</li>
+          <li>Check your spam/promotions folder if you expected an email</li>
           <li>Contact support at <strong>support@ericjoye.com</strong> with your payment confirmation</li>
         </ul>
       </div>
@@ -110,5 +126,40 @@
       <a href="PRIVACY.md">Privacy</a>
     </p>
   </div>
+  <script>
+    // Auto-claim license key from Vercel API
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+      const paymentIntent = params.get('payment_intent');
+
+      if (!sessionId && !paymentIntent) {
+        document.getElementById('auto-key').style.display = 'none';
+        return;
+      }
+
+      const claimUrl = sessionId
+        ? 'https://bodymind-os.vercel.app/api/claim-key?session_id=' + encodeURIComponent(sessionId)
+        : 'https://bodymind-os.vercel.app/api/claim-key?payment_intent=' + encodeURIComponent(paymentIntent);
+
+      // Retry up to 5 times with 3s delay
+      for (let i = 0; i < 5; i++) {
+        try {
+          const resp = await fetch(claimUrl);
+          const data = await resp.json();
+          if (data.found && data.key) {
+            document.getElementById('key-loading').style.display = 'none';
+            document.getElementById('key-display').textContent = data.key;
+            document.getElementById('key-found').style.display = 'block';
+            return;
+          }
+        } catch (e) {}
+        await new Promise(r => setTimeout(r, 3000));
+      }
+
+      document.getElementById('key-loading').style.display = 'none';
+      document.getElementById('key-not-found').style.display = 'block';
+    })();
+  </script>
 </body>
 </html>

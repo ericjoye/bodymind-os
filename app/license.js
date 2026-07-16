@@ -96,7 +96,8 @@
   const PRODUCT_SLUG = 'bodymind-os';
   const TIER = 'pro';
   const KEY_PREFIX = 'BODYMINDOS-PRO';
-  const PUBLIC_KEY_JWK = {"kty":"EC","x":"Za5TC6hiS-eJIFbYfv_xEb4iYfTAISzBIhB9G6M1FZo","y":"a_kKNOm5DIn1c9ztRDSIfWiJw8rUt8a-vVcLMdlmwVA","crv":"P-256"};
+  // Generated 2026-07-16: replaced lost private key. Pair stored at keys/license-*.pem
+  const PUBLIC_KEY_JWK = {"kty":"EC","x":"brt3SKBWmzqFvjQb6b-S7k1zhuTYarEeA0UfSeJCuTs","y":"yjnRpA_CbP7Yf8pfCLgxACoXc0HOJcwDQg8y11c49V8","crv":"P-256"};
 
   const subtle = (typeof crypto !== 'undefined' && crypto.subtle) ? crypto.subtle : null;
 
