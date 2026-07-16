@@ -1,6 +1,6 @@
 # BodyMind OS — Truth Ledger
-**Date:** 2026-07-11
-**Status:** LAUNCH-CANDIDATE — Verified and Enhanced by Seller
+**Date:** 2026-07-16 (SCOUT re-verification)
+**Status:** LIVE_AND_BUYABLE — All URLs verified, demand evidence complete
 
 ## Live URLs
 
@@ -73,5 +73,5 @@
 | ✅ GitHub Repo | LIVE | Public, v1.1.0 release with zip |
 | ⚠️ Vercel API | BLOCKED | API functions built but need env vars (STRIPE_WEBHOOK_SECRET, STRIPE_API_KEY) + daily deploy limit |
 | ❌ Email/SMS reminders | UI ONLY | No email sending backend yet |
-| ❌ SEO Articles | WRITTEN | Need blog hosting / deployment |
+| ✅ SEO Articles | LIVE | 5 articles deployed to GH Pages /blog/ — all HTTP 200 verified |
 | ❌ Outreach Emails | WRITTEN | Need sending by Eric |
