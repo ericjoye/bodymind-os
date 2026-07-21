@@ -1,8 +1,23 @@
 {
   "product_id": "prod_UmZ1uKQ0uhweUI",
-  "price_id": "price_1TmzszIFomlmzi58DfYaNsZK",
-  "payment_link_id": "plink_1Tmzt0IFomlmzi58wXAG4BrG",
-  "payment_link_url": "https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J",
-  "price_display": "$49/mo",
-  "livemode": true
+  "prices": [
+    {
+      "tier": "pro",
+      "price_id": "price_1TmzszIFomlmzi58DfYaNsZK",
+      "payment_link_id": "",
+      "payment_link_url": "https://buy.stripe.com/3cI7sMdTqdZn1Xo5e0bAs0I",
+      "price_display": "$29/mo",
+      "livemode": true
+    },
+    {
+      "tier": "studio",
+      "price_id": "price_1TmzszIFomlmzi58DfYaNsZK",
+      "payment_link_id": "plink_1Tmzt0IFomlmzi58wXAG4BrG",
+      "payment_link_url": "https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J",
+      "price_display": "$49/mo",
+      "livemode": true
+    }
+  ],
+  "checkout_url": "https://buy.stripe.com/3cI7sMdTqdZn1Xo5e0bAs0I",
+  "payment_link_url": "https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J"
 }

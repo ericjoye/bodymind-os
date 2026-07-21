@@ -1,0 +1,9 @@
+{
+  "type": "digital-download",
+  "price_id": "price_1TmzszIFomlmzi58DfYaNsZK",
+  "zip_path": "bodymind-os.zip",
+  "email_template": {
+    "subject": "Your BodyMind OS license is ready!",
+    "body": "Thanks for purchasing BodyMind OS!\n\nYour license key is: {license_key}\n\nOpen the app at https://ericjoye.github.io/bodymind-os/app/ and paste your key to activate Pro or Studio features.\n\nNeed help? Reply to this email or contact support@ericjoye.com.\n\n— The BodyMind OS Team"
+  }
+}
