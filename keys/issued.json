@@ -430,5 +430,23 @@
     "paymentIntent": "demo_studio_key_2026",
     "note": "Studio demo key for thank-you page",
     "key": "BODYMINDOS-STUDIO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoic3R1ZGlvIiwicGkiOiJkZW1vX3N0dWRpbyIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6ImQyN2Y5MTA2In0.fYhrfPBSubp3r8L83h3laUhFRjj8zfeeVyqmX4_8vKJqOR9aba2oqsqYJx2D-pPouExg_aXuC2gCO-Ew62_hLw"
+  },
+  {
+    "issuedAt": "2026-07-21T04:14:18.122Z",
+    "paymentIntent": "pi_DRILL_1784607257845",
+    "note": "TEST DRILL",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiIwNzI1Nzg0NSIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6IjRjYmFmNGM0In0.eodur84q0lZq6w1P9Tr5Cy2QtBlcMg1n0IPZS6Ravg72nyI0nRSwnNTmyrB9Nxttk4t_4TRkwp4_hekb02vjWQ"
+  },
+  {
+    "issuedAt": "2026-07-21T04:14:25.687Z",
+    "paymentIntent": "pi_test_1784607265",
+    "note": "test-for-verification",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiI4NDYwNzI2NSIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6IjZkZjg1NzJmIn0.5EshzT7cRz0-ki47iOlpNUn4Hdw0iwfqbZbY_4C3vgakHmMyeypr5MUJjOtwgsYAvxl0lk6HPduv23Q0k38o5g"
+  },
+  {
+    "issuedAt": "2026-07-21T04:14:26.088Z",
+    "paymentIntent": "pi_1784607265",
+    "note": "verify-test",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiI4NDYwNzI2NSIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6ImQ5NmQzYWQzIn0.QbrGkQbfM1su-u8JUeTivM2Sn5_eXvLO0X7M3qDmUWA03rQYZ_bZxLFzz_kGkzf9YZX9H0EU6_RYB3zrgBYJzg"
   }
 ]
