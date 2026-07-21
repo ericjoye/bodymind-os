@@ -388,5 +388,47 @@
     "paymentIntent": "pi_DRILL_1784606218210",
     "note": "TEST DRILL",
     "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiIwNjIxODIxMCIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6IjJjYjc0Mzg3In0.-i0vD02G-nAB_iKuO8r-CtCaD9wehwg2E1ceoZ3ifozGSBtuImkS3hR6KNjzk6Y4VIT5ZDWUp3TMOIzQQdXwaA"
+  },
+  {
+    "issuedAt": "2026-07-21T04:03:08.326Z",
+    "paymentIntent": "demo_pro_key",
+    "note": "Pro demo key for thank-you page",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiJfcHJvX2tleSIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6IjMzYTUwOWJiIn0.Ec4-hRIn-p79pcvSZLtMy4KOevgcqk4r1WEal_vi0GSd68sikpFnqY5RezlHxjsm8IizKHmu53xInD-Th4ruBw"
+  },
+  {
+    "issuedAt": "2026-07-21T04:03:30.652Z",
+    "paymentIntent": "demo_pro_1784606610",
+    "note": "Pro demo key for thank-you page",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiI4NDYwNjYxMCIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6ImQxNWU3MzU5In0.QaCjAt-qfLEjaEm_G_1eTlv-dSRYvfpmx-659dpjNBEivjKtMrDyIINEjEDr6GBo3YD_3oKrD4OJrbHEWCL1LA"
+  },
+  {
+    "issuedAt": "2026-07-21T04:03:33.683Z",
+    "paymentIntent": "demo_studio_1784606613",
+    "note": "Studio demo key for thank-you page",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiI4NDYwNjYxMyIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6ImFiNzA4NDg0In0.YCoU1vdIqZmwX_EHlmVtViav217wHN0GcIi3XY5tfK8D6_j1_rvZwZHTcdEdAY5t89EN_2vfK8WbS0ZreJwSDQ"
+  },
+  {
+    "issuedAt": "2026-07-21T04:03:47.092Z",
+    "paymentIntent": "demo_pro_999",
+    "note": "Pro demo key",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiJfcHJvXzk5OSIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6IjIyMDJjNGVkIn0.kPTau-BtvyK08tWUCC45w5gg9HxAo9im4rB-Ox8fjC4gcphyRZe2Cf3LAGatmz7Sf-Qjaar3MIIFn6QU20uOfA"
+  },
+  {
+    "issuedAt": "2026-07-21T04:03:52.362Z",
+    "paymentIntent": "demo_pro_888",
+    "note": "Test key",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiJfcHJvXzg4OCIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6IjVkODA0OGMzIn0.DJR_p1w47vr8L7oMIYolEs_wz-0rZXzhYjYMc6RKr4CmVj9sXMWbero2ScqXrD1S6Xn1OjJYLLnBMcZvCmpb1A"
+  },
+  {
+    "issuedAt": "2026-07-21T04:15:00.000Z",
+    "paymentIntent": "demo_pro_key_2026",
+    "note": "Pro demo key for thank-you page",
+    "key": "BODYMINDOS-PRO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoicHJvIiwicGkiOiJkZW1vX3BybyIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6IjEwOWU4NzRmIn0.8b4sU9zSscRLD_3KPV68eep5E0TBej-RcdPrg_XGi3XEXP-O3MrPuNJhzJOvwrJ1L2CFD7sZoWzSBLnhJLbwIg"
+  },
+  {
+    "issuedAt": "2026-07-21T04:15:01.000Z",
+    "paymentIntent": "demo_studio_key_2026",
+    "note": "Studio demo key for thank-you page",
+    "key": "BODYMINDOS-STUDIO.eyJwcm9kdWN0IjoiYm9keW1pbmQtb3MiLCJ0aWVyIjoic3R1ZGlvIiwicGkiOiJkZW1vX3N0dWRpbyIsImlhdCI6IjIwMjYtMDctMjEiLCJub25jZSI6ImQyN2Y5MTA2In0.fYhrfPBSubp3r8L83h3laUhFRjj8zfeeVyqmX4_8vKJqOR9aba2oqsqYJx2D-pPouExg_aXuC2gCO-Ew62_hLw"
   }
 ]

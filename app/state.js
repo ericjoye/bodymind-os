@@ -327,7 +327,7 @@
     getLicense,
     setLicense,
     clearLicense,
-    validateLicenseKey,
+    // validateLicenseKey removed 2026-07-20 — ECDSA verifier in license.js is the only path
     getLicenseTier,
     isFeatureAvailable,
     updateSettings,
