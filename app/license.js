@@ -23,7 +23,7 @@
 
     upgradeInfo.classList.remove('hidden');
 
-    activateBtn.addEventListener('click', () => {
+    activateBtn.addEventListener('click', async () => {
       const key = document.getElementById('license-key').value.trim();
 
       if (!key) {
@@ -31,14 +31,14 @@
         return;
       }
 
-      const result = window.BM.state.validateLicenseKey(key);
-      if (!result) {
-        showError('Invalid key format. Expected: BOMD-XXXX-XXXX-XXXX');
+      // Call the REAL ECDSA verifier
+      const result = await window.License.activateLicense(key);
+      if (!result.ok) {
+        showError(result.reason || 'Invalid license key.');
         return;
       }
 
-      // Activate
-      window.BM.state.setLicense(result.tier);
+      // Success — the activateLicense function updates state automatically
       showApp();
     });
 
@@ -90,12 +90,15 @@
 })();
 
 
-// ── ECDSA License Verification (auto-appended by fulfillment repair) ──
+// ── ECDSA License Verification (REAL — wired to splash on 2026-07-20) ──
 (function() {
   'use strict';
   const PRODUCT_SLUG = 'bodymind-os';
-  const TIER = 'pro';
-  const KEY_PREFIX = 'BODYMINDOS-PRO';
+  // Supported prefixes and their mapping to tiers
+  const PREFIX_TIERS = {
+    'BODYMINDOS-PRO': 'pro',
+    'BODYMINDOS-STUDIO': 'studio',
+  };
   // Generated 2026-07-16: replaced lost private key. Pair stored at keys/license-*.pem
   const PUBLIC_KEY_JWK = {"kty":"EC","x":"brt3SKBWmzqFvjQb6b-S7k1zhuTYarEeA0UfSeJCuTs","y":"yjnRpA_CbP7Yf8pfCLgxACoXc0HOJcwDQg8y11c49V8","crv":"P-256"};
 
@@ -123,10 +126,15 @@
       const trimmed = (key || '').trim();
       if (!trimmed) return { ok: false, reason: 'Empty key.' };
       const parts = trimmed.split('.');
-      if (parts.length !== 3 || parts[0] !== KEY_PREFIX) {
-        return { ok: false, reason: `Invalid key format. Expected: ${KEY_PREFIX}.<payload>.<signature> — paste the full key from your email.` };
+      if (parts.length !== 3) {
+        return { ok: false, reason: 'Invalid key format. Expected: <PREFIX>.<payload>.<signature> — paste the full key from your email.' };
       }
-      const [, payloadB64, sigB64] = parts;
+      const [prefix, payloadB64, sigB64] = parts;
+      // Determine tier from prefix
+      const tier = PREFIX_TIERS[prefix];
+      if (!tier) {
+        return { ok: false, reason: 'Unknown key prefix "' + prefix + '". Expected BODYMINDOS-PRO or BODYMINDOS-STUDIO.' };
+      }
       if (payloadB64.length > 2048 || sigB64.length > 512) return { ok: false, reason: 'Key too long.' };
       let payload;
       try {
@@ -135,7 +143,8 @@
         return { ok: false, reason: 'Corrupted key payload. Re-copy the full key from your email.' };
       }
       if (payload.product !== PRODUCT_SLUG) return { ok: false, reason: 'Key is for a different product.' };
-      if (payload.tier !== TIER) return { ok: false, reason: 'Unsupported tier: ' + String(payload.tier) };
+      // Verify the payload tier matches the prefix
+      if (payload.tier !== tier) return { ok: false, reason: 'Tier mismatch in key.' };
       const pubKey = await getPublicKey();
       const valid = await subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, pubKey, b64urlToBytes(sigB64), new TextEncoder().encode(payloadB64));
       if (!valid) return { ok: false, reason: 'Invalid signature. This key was not issued by us — contact support for a reissue.' };
@@ -148,11 +157,19 @@
   async function activateLicense(key) {
     const result = await verifyLicense(key);
     if (!result.ok) return result;
+    // Store in both the legacy storage and the state system
     localStorage.setItem('bodymind-os_license', JSON.stringify({ key: key.trim(), valid: true, meta: result.meta }));
+    // Update the app's state system so getLicenseTier() etc. work
+    if (typeof window.BM !== 'undefined' && window.BM.state && window.BM.state.setLicense) {
+      window.BM.state.setLicense(result.meta.tier);
+    } else {
+      // Fallback — store directly in localStorage for the state system
+      localStorage.setItem('bodymind_license', JSON.stringify({ tier: result.meta.tier, activated: new Date().toISOString() }));
+    }
     return result;
   }
 
-  const API = { verifyLicense, activateLicense, KEY_PREFIX };
+  const API = { verifyLicense, activateLicense, PREFIX_TIERS };
   if (typeof window !== 'undefined') window.License = API;
   if (typeof globalThis !== 'undefined') globalThis.License = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

@@ -1,7 +1,7 @@
 pipeline:
   current_stage: seller
-  next_stage_recommended: foreman
-  next_stage_reason: "SELLER enhancements complete: Brand-Voice copy, JSON-LD structured data, OG tags, FAQ with Language Bank, ROI section, SEO articles, outreach emails. Thank-you page rewritten for static hosting (no Vercel API dependency). Truth ledger updated. Product promoted to LAUNCH-CANDIDATE."
+  next_stage_recommended: analytics
+  next_stage_reason: "MERCHANT launch complete 2026-07-16. 24/26 live URLs verified HTTP 200. Marketing materials created: 5 directory drafts (Capterra, G2, AlternativeTo, SaaSHub, ProductHunt), 3 social post drafts (Reddit, LinkedIn, HN), 3 outreach emails (drafted). LAUNCH-REPORT.md updated. Remain: manual directory submissions, email sending, Vercel API env vars for auto-fulfillment."
 reasoning:
   current_decision: PASS
   confidence: 0.95
@@ -13,12 +13,11 @@ evidence_for:
   - "Stripe Studio ($49/mo): https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J — LIVE HTTP 200"
   - "License drill 6/6 PASS (ECDSA P-256 fulfillment chain verified)"
   - "SELLER-COPY.md: Brand-Voice guide + Language Bank for massage therapists, Voice & Language Gate PASS"
-  - "2 SEO articles written for massage therapist audience (intake forms/SOAP notes + CE tracking)"
+  - "5 SEO articleS deployed live — scheduling, SOAP notes, CE tracking, intake forms, business costs"
   - "3 outreach emails drafted (direct therapist, ABMP/massage school, podcast/influencer)"
   - "Truth ledger updated: TRUTH-LEDGER.md + PRODUCT_TRUTH_STATE.md promoted to LAUNCH-CANDIDATE"
 evidence_against:
   - "Vercel API env vars not set (STRIPE_WEBHOOK_SECRET, STRIPE_API_KEY) — automated key delivery only via manual script"
-  - "SEO articles not deployed to blog URL (need hosting)"
   - "Outreach emails not sent (need Eric to send)"
 assumptions_remaining:
   - "Stripe webhook env vars require human config in Vercel dashboard"

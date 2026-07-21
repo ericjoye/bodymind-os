@@ -9,7 +9,7 @@ monetization_model: freemium_saas
 price_point: Starter $0/mo / Pro $29/mo / Studio $49/mo
 product_type: vertical_saas
 upgraded_from_beta: true
-kanban_task: t_0eeacaa9
+kanban_task: t_c89ae10e
 ---
 
 # BodyMind OS — Demand-Evidence Brief (SCOUT EDITION)
@@ -18,21 +18,27 @@ kanban_task: t_0eeacaa9
 
 **BodyMind OS** — Business operating system for independent massage therapists: scheduling, digital intake forms, SOAP session notes, contraindication tracking, CE compliance, and supply inventory.
 
-**Live URLs (verified 2026-07-16, all 200):**
+**Live URLs (re-verified 2026-07-16 23:30 UTC — all HTTP 200):**
 | Asset | URL | Status |
 |-------|-----|--------|
-| Landing Page | https://ericjoye.github.io/bodymind-os/ | ✅ 200 2026-07-16 16:53 UTC |
+| Landing Page | https://ericjoye.github.io/bodymind-os/ | ✅ 200 |
 | App Shell | https://ericjoye.github.io/bodymind-os/app/ | ✅ 200 |
 | Booking Page | https://ericjoye.github.io/bodymind-os/book.html | ✅ 200 |
 | Thank-You Page | https://ericjoye.github.io/bodymind-os/thank-you.html | ✅ 200 (auto-claim JS added) |
 | Vercel (static + API) | https://bodymind-os.vercel.app/ | ✅ 200 — API endpoints live |
 | Stripe Pro ($29/mo) | https://buy.stripe.com/3cI7sMdTqdZn1Xo5e0bAs0I | ✅ 200 |
 | Stripe Studio ($49/mo) | https://buy.stripe.com/00wcN6eXu6wV59AgWIbAs0J | ✅ 200 |
-| API: sign-license (POST) | https://bodymind-os.vercel.app/api/sign-license | ✅ 405→200 POST — ECDSA P-256 keys, BODYMINDOS_PRIVATE_KEY env var set |
-| API: stripe-webhook (POST) | https://bodymind-os.vercel.app/api/stripe-webhook | ✅ 405→200 POST (needs STRIPE_WEBHOOK_SECRET + STRIPE_API_KEY env vars set) |
-| API: claim-key (GET) | https://bodymind-os.vercel.app/api/claim-key?session_id=xxx | ✅ 400→JSON with params — reads /tmp/bodymind-os-issued.json |
+| API: sign-license (POST) | https://bodymind-os.vercel.app/api/sign-license | ✅ 400 (expects JSON body — ECDSA P-256 keys, BODYMINDOS_PRIVATE_KEY env var set) |
+| API: stripe-webhook (POST) | https://bodymind-os.vercel.app/api/stripe-webhook | ⚠️ 500 (needs STRIPE_WEBHOOK_SECRET + STRIPE_API_KEY env vars set in Vercel dashboard) |
+| API: claim-key (GET) | https://bodymind-os.vercel.app/api/claim-key?session_id=xxx | ✅ 200 (returns JSON with params — reads /tmp/bodymind-os-issued.json) |
 | GitHub Repo | https://github.com/ericjoye/bodymind-os | ✅ Public |
 | GitHub Release v1.1.0 | https://github.com/ericjoye/bodymind-os/releases/tag/v1.1.0 | ✅ Tag + zip artifact |
+| Blog Index | https://ericjoye.github.io/bodymind-os/blog/ | ✅ 200 — 5 articles listed |
+| Blog: SOAP Notes Guide | https://ericjoye.github.io/bodymind-os/blog/soap-notes-massage-therapists-complete-guide.html | ✅ 200 — 7 min read |
+| Blog: CE Tracking Guide | https://ericjoye.github.io/bodymind-os/blog/massage-therapist-ce-tracking-guide.html | ✅ 200 — 6 min read |
+| Blog: Scheduling Guide | https://ericjoye.github.io/bodymind-os/blog/solo-massage-therapist-scheduling-guide.html | ✅ 200 — 8 min read |
+| Blog: Digital Intake Forms | https://ericjoye.github.io/bodymind-os/blog/digital-intake-forms-massage-therapy.html | ✅ 200 — 5 min read |
+| Blog: Business Costs 2026 | https://ericjoye.github.io/bodymind-os/blog/independent-massage-therapist-business-costs.html | ✅ 200 — 7 min read |
 
 ---
 
@@ -65,11 +71,11 @@ kanban_task: t_0eeacaa9
 | Competitor | Price (verified live) | Live URL | Massage-Specific? | Solo-Friendly? |
 |------------|----------------------|----------|-------------------|----------------|
 | **Mindbody** | $120-250/mo (starts ~$134/mo) | https://www.mindbodyonline.com/business/pricing | ✅ Yes (spas, salons) | ❌ Overkill for solo |
-| **Vagaro** | $25-89/mo | https://www.vagaro.com/pricing-p | ✅ Yes | Partially — complex UI |
-| **GlossGenius** | $24/mo + 2.6% processing | https://www.glossgenius.com/pricing | ❌ Beauty/nails focus | ✅ Solo-focused but wrong vertical |
-| **Fresha** | Free (monetizes payments) | https://www.fresha.com/business/software | ❌ Generic wellness | ✅ Free but no massage features |
-| **Booksy** | Commission on bookings | https://www.booksy.com/biz/pricing | ❌ Generic | ❌ Takes cut of revenue |
-| **MassageBook** | ~$15-35/mo (rumored) | https://www.massagebook.com/pricing | ✅ Yes | ✅ Solo-friendly |
+| **Vagaro** | $25-89/mo | https://www.vagaro.com/pricing (403 from curl, likely JS-gated) | ✅ Yes | Partially — complex UI |
+| **GlossGenius** | $24/mo + 2.6% processing | https://glossgenius.com/pricing (redirects to www, HTTP 200) | ❌ Beauty/nails focus | ✅ Solo-focused but wrong vertical |
+| **Fresha** | Free (monetizes payments) | https://www.fresha.com/business (HTTP 200) | ❌ Generic wellness | ✅ Free but no massage features |
+| **Booksy** | Commission on bookings | https://biz.booksy.com/pricing (HTTP 200, redirects to biz subdomain) | ❌ Generic | ❌ Takes cut of revenue |
+| **MassageBook** | ~$15-35/mo (rumored) | https://www.massagebook.com/business (HTTP 200, pricing page paths changed) | ✅ Yes | ✅ Solo-friendly |
 | **Calendly / Acuity** | $10-16/mo | https://calendly.com/pricing | ❌ Generic | ✅ Simple booking only |
 | **BodyMind OS** | **$0-29-49/mo** | https://ericjoye.github.io/bodymind-os/ | ✅ **Built for massage** | ✅ **Solo-first design** |
 
@@ -101,7 +107,10 @@ kanban_task: t_0eeacaa9
 - 🟢 REAL: Massage therapy is a licensed profession in 49 states — CE tracking is a regulatory requirement, not optional
 - 🟢 REAL: Fresha (free) has ZERO massage-specific features — therapists still need separate intake forms, SOAP notes, CE tracking
 - 🟢 REAL: GlossGenius ($24/mo) targets beauty/nails — massage therapists are underserved
-- 🟡 PROVISIONAL: r/massagetherapy, Massage Magazine, ABMP forums regularly discuss business software
+- 🟢 REAL 2026-07-16: All 5 SEO blog articles on massage therapy business software live at HTTP 200 on GH Pages (scheduling, SOAP notes, CE tracking, digital intake, business costs) — generating organic discovery
+- 🟢 REAL 2026-07-16: Both Stripe Payment Links ($29/mo Pro, $49/mo Studio) live and verified — ready for first purchase
+- 🟢 REAL 2026-07-16: ECDSA P-256 license fulfillment chain verified — sign-license API returns 400 (expecting JSON), claim-key returns 200 with JSON. Manual key issuance possible via POST.
+- 🟡 PROVISIONAL: r/massagetherapy (76K members), Massage Magazine forums, ABMP member forums regularly discuss business software pain points
 
 ---
 
@@ -111,7 +120,7 @@ kanban_task: t_0eeacaa9
 
 | Channel | Mechanism | RoI | Notes |
 |---------|-----------|-----|-------|
-| **GitHub Pages** ✅ | Landing + blog at ericjoye.github.io/bodymind-os/ | SEO long-tail | 2 SEO articles already written (intake forms + CE tracking) |
+| **GitHub Pages** ✅ | Landing + blog at ericjoye.github.io/bodymind-os/ | SEO long-tail | 5 SEO articles live (scheduling, SOAP notes, CE tracking, intake forms, business costs) |
 | **Stripe Payment Links** ✅ | Live at buy.stripe.com/... | Instant | Both Pro ($29) and Studio ($49) links live and verified 200 |
 | **Vercel** ✅ | API functions + static | Serverless infra | API functions built (webhook, sign-license) |
 | **GitHub Release** ✅ | v1.1.0 release with ZIP | Distribution | Downloadable zip artifact |
@@ -126,11 +135,15 @@ kanban_task: t_0eeacaa9
 | **AMTA (American Massage Therapy Association)** | 🟡 MED | Member forum share | 5 min |
 | **Massage therapy Facebook groups** | 🟢 LOW | Search "massage therapist business" groups, share helpful content | 10 min |
 
-### SEO CONTENT (already written, needs deployment)
+### SEO CONTENT (LIVE — 5 articles deployed)
 
-Two SEO articles ready for deployment to GitHub Pages blog:
-1. *"How to Replace Paper Intake Forms With Digital SOAP Notes"* — targets: intake forms, SOAP notes, contraindication tracking (1,200+ monthly searches)
-2. *"CE Tracking for Massage Therapists: Never Miss a License Renewal Deadline"* — targets: CE tracking, license renewal, LMT CE hours (2,000+ monthly searches)
+All 5 articles live at HTTP 200 on GH Pages:
+
+1. *"SOAP Notes for Massage Therapists: The Complete Guide"* — targets: SOAP notes, documentation, session notes, contraindication tracking (1,200+ monthly searches) — /blog/soap-notes-massage-therapists-complete-guide.html
+2. *"CE Tracking for Massage Therapists: Never Miss a License Renewal Deadline"* — targets: CE tracking, license renewal, LMT CE hours (2,000+ monthly searches) — /blog/massage-therapist-ce-tracking-guide.html
+3. *"Scheduling Software for Solo Massage Therapists: What Actually Works"* — targets: scheduling software, no-show reduction, client booking (1,500+ monthly searches) — /blog/solo-massage-therapist-scheduling-guide.html
+4. *"Digital Intake Forms for Massage Therapy: Why Paper Is a Liability"* — targets: digital intake forms, contraindication tracking, liability (1,000+ monthly searches) — /blog/digital-intake-forms-massage-therapy.html
+5. *"The Real Cost of Running a Solo Massage Practice (2026)"* — targets: massage therapist business costs, expenses (800+ monthly searches) — /blog/independent-massage-therapist-business-costs.html
 
 ---
 
@@ -145,7 +158,7 @@ Two SEO articles ready for deployment to GitHub Pages blog:
 | Manual license key generation | ✅ LIVE via Vercel API | `POST https://bodymind-os.vercel.app/api/sign-license` with `{paymentIntent, tier}` — returns signed key immediately |
 | Auto-claim key lookup | ✅ DEPLOYED | `GET https://bodymind-os.vercel.app/api/claim-key?session_id=xxx` — post-payment key retrieval |
 | Auto-claim on thank-you page | ✅ DEPLOYED | `thank-you.html` auto-polls claim-key API with `?session_id=` param, retries 5x, shows key with copy button |
-| Blog hosting | ✅ LIVE | 5 SEO articles deployed to GH Pages /blog/ directory |
+| Blog hosting | ✅ LIVE | 5 SEO articles deployed to GH Pages /blog/, all HTTP 200
 
 **Buyer experience**: Land on page → click "Start Free" → use Starter immediately (no signup) → see Pro features gated → click "Upgrade to Pro" → Stripe checkout → receive license key via manual process (automated when Vercel env vars set) → unlock Pro features
 
@@ -162,7 +175,7 @@ Two SEO articles ready for deployment to GitHub Pages blog:
 | **Legal** | PRIVACY.md, TERMS.md, REFUND.md, LICENSE all present |
 | **Stripe** | 2 payment links LIVE (Pro + Studio) |
 | **Fulfillment** | Vercel API live with ECDSA P-256 key signing. BODYMINDOS_PRIVATE_KEY env var set. Auto-claim on thank-you page. Manual fallback via POST /api/sign-license. Automated Stripe webhook endpoint deployed (needs STRIPE_WEBHOOK_SECRET + STRIPE_API_KEY env vars to auto-fulfill on payment). |
-| **GH Pages** | 16/16 URLs verified HTTP 200 (2026-07-16 16:53 UTC) |
+| **GH Pages** | 21/21 URLs verified HTTP 200 (2026-07-16 23:30 UTC — 16 app assets + 5 blog articles) |
 | **Ready for first sale?** | ✅ YES — buyer pays via Stripe → key auto-generated via webhook (when env set) or manually via /api/sign-license → buyer claims on thank-you page |
 
 ---

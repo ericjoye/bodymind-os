@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BodyMind OS</title>
   <link rel="stylesheet" href="../styles.css">
+<!-- Plausible analytics -->
+  <!-- Vercel Analytics (free, works on *.vercel.app) -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
   <!-- Splash / License Gate -->
@@ -17,7 +21,7 @@
         <h2>Welcome</h2>
         <p>Enter your license key to unlock Pro, or start with the free Starter plan.</p>
         <div id="splash-error" class="splash-error hidden"></div>
-        <input type="text" id="license-key" placeholder="BOMD-XXXX-XXXX-XXXX" style="text-align:center; font-size:16px; letter-spacing:1px;">
+        <input type="text" id="license-key" placeholder="BODYMINDOS-PRO.xxxxxxxx" style="text-align:center; font-size:14px; letter-spacing:1px;">
         <button class="btn btn-primary btn-full" id="btn-activate" style="margin-top:12px;">Activate Pro</button>
         <button class="btn btn-ghost btn-full" id="btn-free-tier" style="margin-top:8px;">Continue with Starter (Free)</button>
       </div>

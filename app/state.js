@@ -236,19 +236,11 @@
     localStorage.removeItem(LICENSE_KEY);
   }
 
+  // --- ⚠️ DEPRECATED 2026-07-20 — use window.License.activateLicense() instead ---
   function validateLicenseKey(key) {
-    if (!key || typeof key !== 'string') return false;
-    const trimmed = key.trim().toUpperCase();
-    // Format: BOMD-XXXX-XXXX-XXXX where X = alphanumeric
-    const regex = /^BOMD-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
-    if (!regex.test(trimmed)) return false;
-
-    // Demo keys
-    if (trimmed === 'BOMD-DEMO-PRO2-2026') return { tier: 'pro' };
-    if (trimmed === 'BOMD-DEMO-STUD-2026') return { tier: 'studio' };
-
-    // Valid prefix = valid key (in production, this would check against a server)
-    if (trimmed.startsWith('BOMD-')) return { tier: 'pro' };
+    // This function is intentionally crippled to prevent bypassing the real ECDSA verifier.
+    // The real verification now happens in app/license.js via window.License.activateLicense().
+    // See https://github.com/ericjoye/bodymind-os/commit/XXX-TODO
     return false;
   }
 
